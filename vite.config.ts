@@ -5,6 +5,9 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    // GitHub Pages serves this repository below /doctorna-medical-booking/.
+    // Keep local development and the full-stack server on the root path.
+    base: process.env.GITHUB_ACTIONS ? '/doctorna-medical-booking/' : '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
