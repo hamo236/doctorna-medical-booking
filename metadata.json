@@ -1,0 +1,7 @@
+{
+  "name": "دكتورنا - حجز الأطباء والعيادات",
+  "description": "منصة دكتورنا لحجز مواعيد الأطباء والعيادات في مصر، مع تقييمات حقيقية وملف طبي رقمي وإدارة متكاملة للحجوزات.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

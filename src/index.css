@@ -1,0 +1,595 @@
+@import "tailwindcss";
+
+@theme {
+  --color-clinical-navy: var(--color-clinical-navy);
+  --color-clinical-teal: var(--color-clinical-teal);
+  --color-clinical-teal-hover: var(--color-clinical-teal-hover);
+  --color-clinical-surface: var(--color-clinical-surface);
+  --color-clinical-surface-secondary: var(--color-clinical-surface-secondary);
+  --color-clinical-canvas: var(--color-clinical-canvas);
+  --color-clinical-border: var(--color-clinical-border);
+  --color-clinical-muted: var(--color-clinical-muted);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --font-scale: 1;
+    --card-bg-light: #ffffff;
+    --card-border-light: #e2e8f0;
+
+    /* Soothing Morning Clinical Design Tokens (Expert-Approved Soft Palette) */
+    --color-clinical-navy: #0A2540;
+    --color-clinical-teal: #088395;
+    --color-clinical-teal-hover: #0A4D68;
+    --color-clinical-surface: #FFFFFF;
+    --color-clinical-surface-secondary: #F8FAFC;
+    --color-clinical-canvas: #F4F6FA; /* Very soft, calming morning off-white, reduces eye strain */
+    --color-clinical-border: #E2E8F0;
+    --color-clinical-muted: #4F5E73; /* Increased contrast slightly for better readability */
+  }
+  
+  .dark {
+    color-scheme: dark;
+    --card-bg-dark: #0f172a;
+    --card-border-dark: #1e293b;
+
+    /* Eye-Safe Dark Mode Clinical Tokens */
+    --color-clinical-navy: #0F172A;
+    --color-clinical-teal: #14B8A6;
+    --color-clinical-teal-hover: #2DD4BF;
+    --color-clinical-surface: #111827;
+    --color-clinical-surface-secondary: #1E293B;
+    --color-clinical-canvas: #070B12;
+    --color-clinical-border: #1F2937;
+    --color-clinical-muted: #94A3B8;
+  }
+
+  /* Accessibility Text Scaling */
+  html.text-scale-normal {
+    font-size: 16px;
+  }
+  html.text-scale-large {
+    font-size: 18px;
+  }
+  html.text-scale-huge {
+    font-size: 20px;
+  }
+  
+  /* Fade-in animation for initial mount */
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-in-out;
+  }
+  
+  /* High Contrast Accessibility Mode */
+  html.high-contrast {
+    filter: contrast(1.15);
+  }
+  html.high-contrast .dark {
+    filter: contrast(1.25);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-height: 100vh;
+    background-color: var(--color-clinical-canvas);
+    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1), border-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Typographic Family Utility Classes */
+.font-heading {
+  font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+}
+
+.font-body {
+  font-family: 'Tajawal', sans-serif;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Clinical Architectural Surfaces & Cards */
+.clinical-card {
+  background: var(--color-clinical-surface);
+  border: 1px solid var(--color-clinical-border);
+  border-radius: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.clinical-card-hover:hover {
+  border-color: #088395;
+  box-shadow: 0 8px 24px -4px rgba(8, 131, 149, 0.08);
+  transform: translateY(-1px);
+}
+
+.dark .clinical-card-hover:hover {
+  border-color: #14B8A6;
+  box-shadow: 0 8px 24px -4px rgba(20, 184, 166, 0.12);
+}
+
+/* Form Controls & Inputs */
+.clinical-input,
+.clinical-select {
+  background-color: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: #0f172a;
+  transition: all 0.15s ease-in-out;
+  min-height: 44px;
+}
+
+.dark .clinical-input,
+.dark .clinical-select {
+  background-color: #0f172a;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+.clinical-input:focus,
+.clinical-select:focus {
+  outline: none;
+  border-color: #088395;
+  box-shadow: 0 0 0 3px rgba(8, 131, 149, 0.15);
+}
+
+.dark .clinical-input:focus,
+.dark .clinical-select:focus {
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+}
+
+/* Clinical Button Hierarchy */
+.btn-clinical-primary {
+  background-color: #088395;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-clinical-primary:hover {
+  background-color: #0a4d68;
+  box-shadow: 0 4px 14px -2px rgba(8, 131, 149, 0.35);
+}
+
+.btn-clinical-primary:active {
+  transform: scale(0.98);
+}
+
+.dark .btn-clinical-primary {
+  background-color: #0d9488;
+  color: #ffffff;
+}
+
+.dark .btn-clinical-primary:hover {
+  background-color: #14b8a6;
+  box-shadow: 0 4px 14px -2px rgba(20, 184, 166, 0.4);
+}
+
+.btn-clinical-secondary {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  font-weight: 700;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-clinical-secondary:hover {
+  background-color: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+.dark .btn-clinical-secondary {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+.dark .btn-clinical-secondary:hover {
+  background-color: #334155;
+  border-color: #475569;
+}
+
+.btn-clinical-navy {
+  background-color: #0A2540;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-clinical-navy:hover {
+  background-color: #051424;
+}
+
+.dark .btn-clinical-navy {
+  background-color: #1E293B;
+  color: #ffffff;
+  border: 1px solid #334155;
+}
+
+.dark .btn-clinical-navy:hover {
+  background-color: #334155;
+}
+
+/* Apple-style Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.6);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.8);
+}
+
+/* High-Clarity Card Styles */
+.apple-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease-in-out;
+}
+
+.dark .apple-card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+}
+
+.apple-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.08);
+  border-color: #0066b2;
+}
+
+.dark .apple-card-hover:hover {
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.6);
+  border-color: #38bdf8;
+}
+
+/* High-Contrast Interactive Buttons */
+.btn-primary-action {
+  background-color: #0066b2;
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(0, 102, 178, 0.25);
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-primary-action:hover {
+  background-color: #005596;
+  box-shadow: 0 4px 12px rgba(0, 102, 178, 0.35);
+  transform: translateY(-1px);
+}
+
+.dark .btn-primary-action {
+  background-color: #0284c7;
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(2, 132, 199, 0.35), 0 2px 4px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.dark .btn-primary-action:hover {
+  background-color: #0369a1;
+  box-shadow: 0 0 20px rgba(2, 132, 199, 0.5), 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-color: rgba(56, 189, 248, 0.7);
+}
+
+.btn-secondary-action {
+  background-color: #f8fafc;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+  font-weight: 700;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-secondary-action:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.dark .btn-secondary-action {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark .btn-secondary-action:hover {
+  background-color: #334155;
+  border-color: #475569;
+  color: #ffffff;
+}
+
+/* Professional Healthcare Print System */
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 12pt;
+    font-family: 'Tajawal', -apple-system, system-ui, sans-serif !important;
+  }
+
+  /* Hide background elements, navigation, interactive controls */
+  header, 
+  footer, 
+  nav, 
+  button, 
+  .no-print,
+  [role="dialog"] > div:first-child,
+  .fixed.inset-0:not(.printable-modal) {
+    display: none !important;
+  }
+
+  /* Ensure printable area is visible and formatted */
+  .printable-area,
+  .printable-medical-report {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .printable-card {
+    border: 1px solid #94a3b8 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    page-break-inside: avoid;
+  }
+
+  /* Preserve colors and borders in print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* From Uiverse.io by Galahhad - Custom Theme Switcher Button styling */
+.theme-switch {
+  --toggle-size: 11px; /* Scaled down for elegant header insertion */
+  --container-width: 5.625em;
+  --container-height: 2.5em;
+  --container-radius: 6.25em;
+  --container-light-bg: #3D7EAE;
+  --container-night-bg: #1D1F2C;
+  --circle-container-diameter: 3.375em;
+  --sun-moon-diameter: 2.125em;
+  --sun-bg: #ECCA2F;
+  --moon-bg: #C4C9D1;
+  --spot-color: #959DB1;
+  --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
+  --stars-color: #fff;
+  --clouds-color: #F3FDFF;
+  --back-clouds-color: #AACADF;
+  --transition: .5s cubic-bezier(0, -0.02, 0.4, 1.25);
+  --circle-transition: .3s cubic-bezier(0, -0.02, 0.35, 1.17);
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+}
+
+@media (max-width: 640px) {
+  .theme-switch {
+    --toggle-size: 8.5px; /* Extra compact scale for mobile screens to maximize space */
+  }
+}
+
+.theme-switch, .theme-switch *, .theme-switch *::before, .theme-switch *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: var(--toggle-size);
+}
+
+.theme-switch__container {
+  width: var(--container-width);
+  height: var(--container-height);
+  background-color: var(--container-light-bg);
+  border-radius: var(--container-radius);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0em -0.062em 0.062em rgba(0, 0, 0, 0.25), 0em 0.062em 0.125em rgba(255, 255, 255, 0.94);
+  transition: var(--transition);
+  position: relative;
+}
+
+.theme-switch__container::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  box-shadow: 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset, 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset;
+  border-radius: var(--container-radius);
+}
+
+.theme-switch__checkbox {
+  display: none !important;
+}
+
+.theme-switch__circle-container {
+  width: var(--circle-container-diameter);
+  height: var(--circle-container-diameter);
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  left: var(--circle-container-offset);
+  top: var(--circle-container-offset);
+  border-radius: var(--container-radius);
+  box-shadow: inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), 0 0 0 0.625em rgba(255, 255, 255, 0.1), 0 0 0 1.25em rgba(255, 255, 255, 0.1);
+  display: flex;
+  transition: var(--circle-transition);
+  pointer-events: none;
+}
+
+.theme-switch__sun-moon-container {
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
+  width: var(--sun-moon-diameter);
+  height: var(--sun-moon-diameter);
+  margin: auto;
+  border-radius: var(--container-radius);
+  background-color: var(--sun-bg);
+  box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #a1872a inset;
+  filter: drop-shadow(0.062em 0.125em 0.125em rgba(0, 0, 0, 0.25)) drop-shadow(0em 0.062em 0.125em rgba(0, 0, 0, 0.25));
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.theme-switch__moon {
+  transform: translateX(100%);
+  width: 100%;
+  height: 100%;
+  background-color: var(--moon-bg);
+  border-radius: inherit;
+  box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #969696 inset;
+  transition: var(--transition);
+  position: relative;
+}
+
+.theme-switch__spot {
+  position: absolute;
+  top: 0.75em;
+  left: 0.312em;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: var(--container-radius);
+  background-color: var(--spot-color);
+  box-shadow: 0em 0.0312em 0.062em rgba(0, 0, 0, 0.25) inset;
+}
+
+.theme-switch__spot:nth-of-type(2) {
+  width: 0.375em;
+  height: 0.375em;
+  top: 0.937em;
+  left: 1.375em;
+}
+
+.theme-switch__spot:nth-last-of-type(3) {
+  width: 0.25em;
+  height: 0.25em;
+  top: 0.312em;
+  left: 0.812em;
+}
+
+.theme-switch__clouds {
+  width: 1.25em;
+  height: 1.25em;
+  background-color: var(--clouds-color);
+  border-radius: var(--container-radius);
+  position: absolute;
+  bottom: -0.625em;
+  left: 0.312em;
+  box-shadow: 0.937em 0.312em var(--clouds-color), -0.312em -0.312em var(--back-clouds-color), 1.437em 0.375em var(--clouds-color), 0.5em -0.125em var(--back-clouds-color), 2.187em 0 var(--clouds-color), 1.25em -0.062em var(--back-clouds-color), 2.937em 0.312em var(--clouds-color), 2em -0.312em var(--back-clouds-color), 3.625em -0.062em var(--clouds-color), 2.625em 0em var(--back-clouds-color), 4.5em -0.312em var(--clouds-color), 3.375em -0.437em var(--back-clouds-color), 4.625em -1.75em 0 0.437em var(--clouds-color), 4em -0.625em var(--back-clouds-color), 4.125em -2.125em 0 0.437em var(--clouds-color);
+  transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
+}
+
+.theme-switch__stars-container {
+  position: absolute;
+  color: var(--stars-color);
+  top: -100%;
+  left: 0.312em;
+  width: 2.75em;
+  height: auto;
+  transition: var(--transition);
+}
+
+/* Actions when checkbox is checked */
+.theme-switch__checkbox:checked + .theme-switch__container {
+  background-color: var(--container-night-bg);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container {
+  left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter));
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container:hover {
+  left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter) - 0.187em);
+}
+
+.theme-switch__circle-container:hover {
+  left: calc(var(--circle-container-offset) + 0.187em);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__moon {
+  transform: translate(0);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__clouds {
+  bottom: -4.062em;
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__stars-container {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
